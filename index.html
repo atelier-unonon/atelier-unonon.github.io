@@ -30,6 +30,7 @@
   var box = document.getElementById('cards');
   if(!box) return;
   var cards = Array.prototype.slice.call(box.children);
+  var shown = false;
   function layout(){
     var n = window.innerWidth >= 1150 ? 5 : window.innerWidth >= 900 ? 4 : window.innerWidth >= 640 ? 3 : window.innerWidth >= 430 ? 2 : 1;
     box.innerHTML = '';
@@ -39,6 +40,12 @@
       var k = 0; for(var i=1;i<n;i++) if(heights[i] < heights[k]) k = i;
       cols[k].appendChild(card); heights[k] = cols[k].offsetHeight;
     });
+    if(!shown){
+      shown = true;
+      cards.forEach(function(card, idx){
+        setTimeout(function(){ card.classList.add('in'); }, 90 + idx * 70);
+      });
+    }
   }
   var t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(layout, 150); });
   window.addEventListener('load', layout);
