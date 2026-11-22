@@ -42,4 +42,4 @@ audio{width:100%}
 footer{text-align:center;color:var(--gray);font-size:13px;padding:24px 12px 36px}
 .pager{display:flex;justify-content:space-between;margin-top:36px;font-size:14px}
 code{word-break:break-all;background:#fff;padding:2px 6px;border:1px solid var(--line)}
-@media(max-width:640px){.hero .photo,.hero .panel{flex:1 1 100%}.hero .photo{min-height:220px}}
+@media(max-width:640px){.topbar{padding:10px 4px}.topbar a{display:inline-block;margin:5px 9px;font-size:12.5px;letter-spacing:.16em}main a{overflow-wrap:anywhere}.hero .photo,.hero .panel{flex:1 1 100%}.hero .photo{min-height:220px}}
