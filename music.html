@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ミュージック | アトリエ うののん</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icon.png">
+</head>
+<body>
+<div class="topbar"><a href="index.html">HOME</a><a href="profile.html">PROFILE</a><a href="order.html">ORDER</a><a href="price.html">PRICE</a><a href="blog.html">BLOG</a><a href="podcast.html">PODCAST</a><a href="music.html">MUSIC</a></div>
+
+<style>.vcard{cursor:default}.vcard .dl{margin:10px 0 2px;font-size:13px}.vcard .dl a{color:var(--lav-d)}.vplay{position:relative;display:block}.playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(30,25,35,.55);border:2px solid rgba(255,255,255,.9);transition:background .3s ease}.vplay:hover .playbtn{background:rgba(179,32,43,.85)}.playbtn:after{content:"";position:absolute;top:50%;left:54%;transform:translate(-50%,-50%);border-style:solid;border-width:11px 0 11px 19px;border-color:transparent transparent transparent #fff}.hero .photo.mov{background-size:cover;background-position:center}@media(max-width:640px){.playbtn{width:52px;height:52px}}</style>
+<section class="hero">
+<div class="photo mov" style="background-image:url('hero_movie.jpg')"></div>
+<div class="panel">
+<div class="catch">
+<p style="font-size:22px;letter-spacing:.3em">MUSIC</p>
+<p>ウォルター・パープルのミュージックビデオを<br>紹介するページです。</p>
+<p>再生ボタンを押すと、YouTubeでご覧いただけます。<br>新しい作品から順に並んでいます。</p>
+</div>
+</div>
+</section>
+<main>
+<div class="cards" id="cards"><div class="card vcard"><div class="day">23</div><div class="mon">Nov. 2026</div><a class="vplay" href="https://youtu.be/g5cb90aQECw"><img src="movie01.jpg" alt=""><span class="playbtn"></span></a><div class="t">Dada Dance</div><div class="ex">地下駐車場を舞台にした、ガンフー×ダンスのミュージックビデオ。ウォルター・パープルの楽曲です。</div><p class="dl"><a href="https://youtu.be/g5cb90aQECw">YouTubeで観る</a></p></div></div>
+</main>
+
+<script>
+(function(){
+  var box = document.getElementById('cards');
+  if(!box) return;
+  var cards = Array.prototype.slice.call(box.children);
+  var armed = false;
+  function armReveal(){
+    if(armed) return; armed = true;
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(e.isIntersecting){
+            var idx = cards.indexOf(e.target);
+            setTimeout(function(){ e.target.classList.add('in'); }, (idx % 6) * 90);
+            io.unobserve(e.target);
+          }
+        });
+      }, {rootMargin: '0px 0px -6% 0px'});
+      cards.forEach(function(card){ io.observe(card); });
+    } else {
+      cards.forEach(function(card, idx){
+        setTimeout(function(){ card.classList.add('in'); }, 90 + idx * 90);
+      });
+    }
+  }
+  function layout(){
+    var n = window.innerWidth >= 1150 ? 5 : window.innerWidth >= 900 ? 4 : window.innerWidth >= 640 ? 3 : window.innerWidth >= 340 ? 2 : 1;
+    box.innerHTML = '';
+    var cols = [], heights = [];
+    for(var i=0;i<n;i++){ var c = document.createElement('div'); c.className='col'; box.appendChild(c); cols.push(c); heights.push(0); }
+    cards.forEach(function(card){
+      var k = 0; for(var i=1;i<n;i++) if(heights[i] < heights[k]) k = i;
+      cols[k].appendChild(card); heights[k] = cols[k].offsetHeight;
+    });
+    armReveal();
+  }
+  var t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(layout, 150); });
+  window.addEventListener('load', layout);
+  layout();
+})();
+</script>
+
+
+<footer>アトリエ うののん<br>このサイトは Ameba Ownd から引っ越しました</footer>
+<script>document.querySelectorAll('a[href^="http"],a[href^="podcast:"]').forEach(function(a){a.target='_blank';a.rel='noopener'})</script>
+</body>
+</html>
